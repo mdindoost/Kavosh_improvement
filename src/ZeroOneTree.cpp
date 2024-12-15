@@ -18,6 +18,8 @@ tree::~tree() {
 }
 
 Node * tree::add_node() {
+	    printf(" Adding a new node to the tree called.");
+
 	Node * n = &node[node_ptr];
 	node_ptr++;
 	if(node_ptr == MAX)
@@ -30,6 +32,8 @@ Node * tree::return_root() {
 }
 
 Leaf * tree::add_leaf() {
+	    printf(" Adding a new leaf to the tree called\n.");
+
 	Leaf * l = &leaf[leaf_ptr];
 	leaf_ptr++;
 	leaf_num++;
@@ -40,6 +44,8 @@ Leaf * tree::add_leaf() {
 
 
 Leaf * tree::update_leaf(Leaf * l, int val) {
+		    printf("Update a leaf in tree called.");
+
 	l->count += val;
 	return l;
 }
@@ -69,6 +75,9 @@ void tree::insert_one_main() {
 		cur_node->right = add_node();
 		cur_node = cur_node->right;
 	}
+#ifdef Debug
+    printf("Inserted insert_one_main called.\n");
+#endif
 }
 
 void tree::insert_one_rand() {
@@ -85,6 +94,9 @@ void tree::insert_zero_main() {
 		cur_node->left = add_node();
 		cur_node = cur_node->left;
 	}	
+#ifdef Debug
+    printf("Inserted insert_zero_main called.\n");
+#endif
 }
 
 void tree::insert_zero_rand() {
@@ -147,6 +159,8 @@ double * tree::extract() {
 
 void tree::DFS(Node * cur) {
 	if(!cur->left && !cur->right) {
+		        printf("[DEBUG] Reached a leaf node during DFS. Count = %d.\n", ((Leaf *)cur)->count);
+
 		Leaf * cur_leaf = (Leaf *)cur;
 		if(cur_leaf->count > 0) {
 			C[head] = leaf->count;

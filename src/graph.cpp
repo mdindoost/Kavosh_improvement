@@ -35,6 +35,8 @@ bool sortCmp(int i, int j) {
 ****************************************************************/
 
 Graph::Graph(const int n, const int k) {
+	    printf("[DEBUG] Initializing Graph with %d nodes and subgraph size %d.\n", n, k);
+
 	register int i, j;
 	subgraphSize = k;
 	T = new tree(k);
@@ -194,6 +196,8 @@ void Graph::swapEdge(vertex v, int ind, vertex u) {
 ****************************************************************/
 
 void Graph::addEdge(vertex u, vertex v) {
+	    printf("[DEBUG] Adding edge between %d and %d.\n", u, v);
+
 	nE++;
 	E_temp[u].push_back(v);
 	E_temp[v].push_back(u);
@@ -230,6 +234,8 @@ int Graph::get_vertex() {
 
 
 void Graph::Finalize() {
+	    printf("[DEBUG] Finalizing graph structure.\n");
+
 	register int i, j, max = 0;
 	vector<int>::iterator it;
 	vector<int> degs;
@@ -464,7 +470,8 @@ void Graph::DFSmain(Node * cur, char * str, int lev) {
 ****************************************************************/
 
 void Graph::Extract() {
-	
+	    printf("[DEBUG] Extracting motifs from the graph called.\n");
+
 	register int i, j;
 	int class_num = T->get_leafnum();
 	char * adj_str = new char[subgraphSize*(subgraphSize-1)];
@@ -488,6 +495,7 @@ void Graph::Extract() {
 			j++;
 		}
 	}
+
 }
 
 /****************************************************************

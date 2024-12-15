@@ -1,7 +1,7 @@
 CPP=g++ 
 INCLUDE=-I./include -I/usr/include/mysql
 LIBS=
-CPPFLAGS=-g -O3 -w $(INCLUDE) $(LIBS)
+CPPFLAGS=-g -O3 -w -DDebug $(INCLUDE) $(LIBS)
 PROGRAM=Kavosh
 
 SRC=src/main.cpp\
@@ -18,13 +18,14 @@ NAUTY = nauty/nauty.o\
 all : $(PROGRAM)
 
 %.o: src/%.cpp include/%.h
-	$(CPP) $(CPPFLAGS) $< -o $@
+	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 nauty/%.o: nauty/%.c
 	$(CPP) $(CPPFLAGS) -c $< -o $@
 
 $(PROGRAM): $(OBJ) $(NAUTY)
 	$(CPP) $(CPPFLAGS) -o $@ $(OBJ) $(NAUTY)
+
 clean:
 	@echo "Removing objects..."
 	rm -f $(PROGRAM) *.log src/*.o src/*~ include/*~ *~ core
