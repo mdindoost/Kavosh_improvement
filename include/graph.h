@@ -31,6 +31,7 @@ public:
 	int Size() { return nV; }
 	int MaxDegree() { return maxDegree; }
 	void Classify(vertex ** subgraph, int level);
+	//void PrintSubgraphMatrix(vertex ** subgraph, int level);
 	void AllocateCounter();
 	void DFS(Node * cur);
 	void DFSmain(Node * cur, char * str, int lev);

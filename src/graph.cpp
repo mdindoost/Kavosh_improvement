@@ -1,4 +1,5 @@
 #include "graph.h"
+#include <iostream>
 
 graph canon[MAXN * MAXM];
 graph * nauty_g;
@@ -35,8 +36,6 @@ bool sortCmp(int i, int j) {
 ****************************************************************/
 
 Graph::Graph(const int n, const int k) {
-	    printf("[DEBUG] Initializing Graph with %d nodes and subgraph size %d.\n", n, k);
-
 	register int i, j;
 	subgraphSize = k;
 	T = new tree(k);
@@ -196,8 +195,6 @@ void Graph::swapEdge(vertex v, int ind, vertex u) {
 ****************************************************************/
 
 void Graph::addEdge(vertex u, vertex v) {
-	    printf("[DEBUG] Adding edge between %d and %d.\n", u, v);
-
 	nE++;
 	E_temp[u].push_back(v);
 	E_temp[v].push_back(u);
@@ -234,8 +231,6 @@ int Graph::get_vertex() {
 
 
 void Graph::Finalize() {
-	    printf("[DEBUG] Finalizing graph structure.\n");
-
 	register int i, j, max = 0;
 	vector<int>::iterator it;
 	vector<int> degs;
@@ -296,7 +291,19 @@ void Graph::Classify(vertex **subgraph, int level) {
 	register int i = 0, j, l, k;
     set *gv;
 	int tempSubgraph[subgraphSize];
-	
+
+    // **DEBUG: Print subgraph as a 2D matrix**
+    std::cout << "*******Subgraph Matrix at the Beginning of Classify:\n";
+
+	for(int l = 0; l < level; l++) {
+		std::cout << "Level " << l << ": ";
+		int num_vertices = subgraph[l][0];
+		for(int k = 1; k <= num_vertices; k++) {
+			std::cout << subgraph[l][k] << " ";
+		}
+		std::cout << std::endl;
+	}
+
 	for (l = 0; l < level; l++) {
 		for(k = 1; k <= subgraph[l][0]; k++) {
 			tempSubgraph[i++] = subgraph[l][k];
@@ -315,10 +322,23 @@ void Graph::Classify(vertex **subgraph, int level) {
 			}
 		}
 	}
-		
+
+	std::cout << "subgraphSize:" << subgraphSize << std::endl;	
+	std::cout << "Labeling array:" << std::endl;
+    
+	for (int i = 0; i < subgraphSize; i++) {
+        std::cout << i << " -> " << lab[i] << std::endl;
+    }
+
 	nauty(nauty_g, lab, ptn, NULL, orbits, &options, &stats, 
 		  workspace, 160*MAXM, M, subgraphSize, canon);
 	
+	std::cout << "Canonical Labeling:" << std::endl;
+    
+	for (int i = 0; i < subgraphSize; i++) {
+        std::cout << i << " -> " << lab[i] << std::endl;
+    }
+
 	T->init_cur_node();
 	
 	if (!isRand) {
@@ -470,8 +490,7 @@ void Graph::DFSmain(Node * cur, char * str, int lev) {
 ****************************************************************/
 
 void Graph::Extract() {
-	    printf("[DEBUG] Extracting motifs from the graph called.\n");
-
+	
 	register int i, j;
 	int class_num = T->get_leafnum();
 	char * adj_str = new char[subgraphSize*(subgraphSize-1)];
@@ -495,7 +514,6 @@ void Graph::Extract() {
 			j++;
 		}
 	}
-
 }
 
 /****************************************************************

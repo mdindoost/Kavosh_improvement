@@ -129,9 +129,9 @@ void Explore(vertex root, int level, int reminder) {
 	register int i, j, k; // k is the number of selected nodes in the current level.
 
 #ifdef Debug
-	//printf("************************************\n");
+	printf("************************************\n");
 	printf("*****   Exploring level %3d  *******\n", level);
-	//printf("************************************\n");
+	printf("************************************\n");
 #endif
 
 	if (reminder == 0) { //reminder == 0 assures level <= subgraphSize
@@ -223,9 +223,6 @@ void swap( int i, int j, int root, int level, int reminder, int m) {
 ****************************************************************/
 
 void GEN( int n, int k, int root, int level, int reminder, int m) {	
-#ifdef Debug
-		printf("=================================================GEN() Called\n");
-#endif Debug
 	if (k > 0 && k < n) {
     	GEN( n-1, k, root, level, reminder, m);
 		if (k == 1) 
@@ -241,9 +238,6 @@ void GEN( int n, int k, int root, int level, int reminder, int m) {
 ****************************************************************/
 
 void NEG( int n, int k, int root, int level, int reminder, int m) {	
-#ifdef Debug
-		printf("=================================================NEG() Called\n");
-#endif Debug
 	if (k > 0 && k < n) {
     	GEN( n-1, k-1, root, level, reminder, m);
     	
@@ -262,14 +256,11 @@ void NEG( int n, int k, int root, int level, int reminder, int m) {
 ***********************************************************************************/
 void Enumerate() {
 	register int v;
-#ifdef Debug
-		printf("=================================================Enumerate() Called\n", v);
-#endif Debug
 
 	for (v = 1; v <= g->Size(); v++)
 	{
 #ifdef Debug
-		printf("+++++ Exploring Node %d ...\n", v);
+		printf("+ Exploring Node %d ...\n", v);
 #endif Debug
 		subgraph[0][0] = 1;
 		subgraph[0][1] = v;
@@ -278,9 +269,6 @@ void Enumerate() {
 		Explore(v, 1, subgraphSize - 1);
 		Visited[v] = false;
 	}	
-#ifdef Debug
-    printf("Subgraph enumeration completed.\n");
-#endif
 }
 
 /****************************************************************
