@@ -329,16 +329,28 @@ void Graph::Classify(vertex **subgraph, int level) {
 	for (int i = 0; i < subgraphSize; i++) {
         std::cout << i << " -> " << lab[i] << std::endl;
     }
+	std::cout << "Partition array:" << std::endl;
+    
+	for (int i = 0; i < subgraphSize; i++) {
+        std::cout << i << " -> " << ptn[i] << std::endl;
+    }
 
 	nauty(nauty_g, lab, ptn, NULL, orbits, &options, &stats, 
 		  workspace, 160*MAXM, M, subgraphSize, canon);
 	
+	std::cout << "********************Nauty returned****************************" << std::endl;
+
 	std::cout << "Canonical Labeling:" << std::endl;
     
 	for (int i = 0; i < subgraphSize; i++) {
         std::cout << i << " -> " << lab[i] << std::endl;
     }
-
+	std::cout << "Partition array:" << std::endl;
+    
+	for (int i = 0; i < subgraphSize; i++) {
+        std::cout << i << " -> " << ptn[i] << std::endl;
+    }
+	
 	T->init_cur_node();
 	
 	if (!isRand) {
