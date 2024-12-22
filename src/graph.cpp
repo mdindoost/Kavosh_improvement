@@ -307,6 +307,7 @@ void Graph::Classify(vertex **subgraph, int level) {
 	for (l = 0; l < level; l++) {
 		for(k = 1; k <= subgraph[l][0]; k++) {
 			tempSubgraph[i++] = subgraph[l][k];
+			std::cout << "tempSubgraph[" << i-1 << "] = " << tempSubgraph[i-1] << std::endl;
 		}
 	}
 	
@@ -318,6 +319,7 @@ void Graph::Classify(vertex **subgraph, int level) {
 				continue;
 			if (isConnected(tempSubgraph[i], tempSubgraph[j])) 
 			{
+				std::cout << "Adding edge from " << i << " (" << tempSubgraph[i] << ") to " << j << " (" << tempSubgraph[j] << ")" << std::endl;
 				ADDELEMENT(gv, j);
 			}
 		}
